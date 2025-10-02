@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест соответствия ситуаций</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #040218;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .situation-test {
+            border: 2px solid #333;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+        }
+        .situation-test h3 {
+            color: #00ff00;
+            margin-top: 0;
+        }
+        .test-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .test-button:hover {
+            background: #45a049;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 5px;
+        }
+        .success {
+            color: #00ff00;
+        }
+        .error {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Тест соответствия ситуаций</h1>
+        <p>Проверяем, что номера файлов текста и изображений соответствуют друг другу</p>
+        
+        <div id="test-results"></div>
+        
+        <button class="test-button" onclick="runAllTests()">Запустить все тесты</button>
+        <button class="test-button" onclick="clearResults()">Очистить результаты</button>
+    </div>
+
+    <script>
+        function runAllTests() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '';
+            
+            for (let i = 1; i <= 9; i++) {
+                testSituationCorrespondence(i);
+            }
+        }
+        
+        function testSituationCorrespondence(situationNumber) {
+            const resultsDiv = document.getElementById('test-results');
+            
+            // Создаем элемент для результата
+            const testDiv = document.createElement('div');
+            testDiv.className = 'situation-test';
+            testDiv.innerHTML = `
+                <h3>Ситуация ${situationNumber}</h3>
+                <p>Проверяем соответствие:</p>
+                <ul>
+                    <li>Текст: sit_${situationNumber}.txt</li>
+                    <li>Изображение: fon_${situationNumber}.png</li>
+                </ul>
+                <div class="result" id="result-${situationNumber}">Тестирование...</div>
+            `;
+            
+            resultsDiv.appendChild(testDiv);
+            
+            // Тестируем загрузку файлов
+            testFileExists(`assets/situations/situatins_text/sit_${situationNumber}.txt`, `result-${situationNumber}`, 'text');
+            testFileExists(`assets/situations/situatins_pics/fon_${situationNumber}.png`, `result-${situationNumber}`, 'image');
+        }
+        
+        function testFileExists(filePath, resultId, type) {
+            fetch(filePath)
+                .then(response => {
+                    const resultDiv = document.getElementById(resultId);
+                    if (response.ok) {
+                        resultDiv.innerHTML += `<div class="success">✅ ${type === 'text' ? 'Текст' : 'Изображение'}: ${filePath} - найден</div>`;
+                    } else {
+                        resultDiv.innerHTML += `<div class="error">❌ ${type === 'text' ? 'Текст' : 'Изображение'}: ${filePath} - не найден</div>`;
+                    }
+                })
+                .catch(error => {
+                    const resultDiv = document.getElementById(resultId);
+                    resultDiv.innerHTML += `<div class="error">❌ ${type === 'text' ? 'Текст' : 'Изображение'}: ${filePath} - ошибка загрузки</div>`;
+                });
+        }
+        
+        function clearResults() {
+            document.getElementById('test-results').innerHTML = '';
+        }
+        
+        // Автоматически запускаем тесты при загрузке страницы
+        window.onload = function() {
+            runAllTests();
+        };
+    </script>
+</body>
+</html>

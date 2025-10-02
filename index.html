@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+        <meta name="mobile-web-app-capable" content="yes">
+        <title>Catch Game</title>
+        <style>
+            /* Загрузка шрифтов Gazprombank Sans */
+            @font-face {
+                font-family: 'Gazprombank Sans';
+                src: url('assets/shrifts/WOFF2/Gazprombank_Sans_Regular.woff2') format('woff2'),
+                     url('assets/shrifts/WOFF/Gazprombank_Sans_Regular.woff') format('woff'),
+                     url('assets/shrifts/TTF/SansTrueType/Gazprombank Sans Regular.ttf') format('truetype');
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            
+            @font-face {
+                font-family: 'Gazprombank Sans';
+                src: url('assets/shrifts/WOFF2/Gazprombank_Sans_Bold.woff2') format('woff2'),
+                     url('assets/shrifts/WOFF/Gazprombank_Sans_Bold.woff') format('woff'),
+                     url('assets/shrifts/TTF/SansTrueType/Gazprombank Sans Bold.ttf') format('truetype');
+                font-weight: 700;
+                font-style: normal;
+                font-display: swap;
+            }
+            
+            @font-face {
+                font-family: 'Gazprombank Sans';
+                src: url('assets/shrifts/WOFF2/Gazprombank_Sans_DemiBold.woff2') format('woff2'),
+                     url('assets/shrifts/WOFF/Gazprombank_Sans_DemiBold.woff') format('woff'),
+                     url('assets/shrifts/TTF/SansTrueType/Gazprombank Sans DemiBold.ttf') format('truetype');
+                font-weight: 600;
+                font-style: normal;
+                font-display: swap;
+            }
+            
+            @font-face {
+                font-family: 'Gazprombank Sans';
+                src: url('assets/shrifts/WOFF2/Gazprombank_Sans_Italic.woff2') format('woff2'),
+                     url('assets/shrifts/WOFF/Gazprombank_Sans_Italic.woff') format('woff'),
+                     url('assets/shrifts/TTF/SansTrueType/Gazprombank Sans Italic.ttf') format('truetype');
+                font-weight: 400;
+                font-style: italic;
+                font-display: swap;
+            }
+
+            *,
+            *::before,
+            *::after {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+    
+            html, body {
+                width: 100%;
+                height: 100%;
+            }
+    
+            body {
+                line-height: 1;
+                font-family: Arial, sans-serif;
+                background-color: #040218;
+            }
+    
+            ol, ul {
+                list-style: none;
+            }
+    
+            img, video {
+                max-width: 100%;
+                height: auto;
+                display: block;
+            }
+    
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+
+            /* Мобильные стили */
+            #game-container {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                -webkit-touch-callout: none;
+                -webkit-tap-highlight-color: transparent;
+                touch-action: manipulation;
+            }
+
+            body {
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                overflow: hidden;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="game-container"></div>
+        <script src="./phaser.js"></script>
+        <script src="./webview-helper.js"></script>
+        <script type="module" src="./src/main.js"></script>
+    </body>
+    </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Catch Game - Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #040218;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        
+        #game-container {
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .test-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-info">
+        <strong>Тест игры Catch Game</strong><br>
+        Размер: 375x667 (мобильный)<br>
+        Управление: перетаскивание мышью/пальцем<br>
+        Цель: ловить хорошие предметы, избегать плохих<br>
+        <br>
+        <strong>Новые возможности:</strong><br>
+        • Адаптивное масштабирование<br>
+        • Новый фон и логотип<br>
+        • Расширенный набор иконок<br>
+        • Поддержка разных разрешений<br>
+        • Система перезапуска (300 очков)<br>
+        • Игра "Три в ряд"<br>
+        • Рандомный выбор игр<br>
+        • Выбор игры в начале<br>
+        • Исправленная логика<br>
+        • Возврат при неправильном свайпе
+    </div>
+    
+    <div id="game-container"></div>
+    
+    <script src="./phaser.js"></script>
+    <script src="./webview-helper.js"></script>
+    <script type="module" src="./src/main.js"></script>
+</body>
+</html>

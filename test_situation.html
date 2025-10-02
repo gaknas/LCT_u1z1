@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест сцены ситуаций</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #040218;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        #game-container {
+            width: 375px;
+            height: 667px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .controls {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: rgba(0,0,0,0.9);
+            padding: 15px;
+            border-radius: 8px;
+            color: white;
+            max-width: 200px;
+        }
+        .controls button {
+            margin: 3px;
+            padding: 8px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            width: 100%;
+        }
+        .controls button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <h3>Тест сцены ситуаций</h3>
+        <button onclick="testSituation(1)">Ситуация 1</button>
+        <button onclick="testSituation(2)">Ситуация 2</button>
+        <button onclick="testSituation(3)">Ситуация 3</button>
+        <button onclick="testSituation(4)">Ситуация 4</button>
+        <button onclick="testSituation(5)">Ситуация 5</button>
+        <button onclick="testSituation(6)">Ситуация 6</button>
+        <button onclick="testSituation(7)">Ситуация 7</button>
+        <button onclick="testSituation(8)">Ситуация 8</button>
+        <button onclick="testSituation(9)">Ситуация 9</button>
+        <button onclick="testLevelComplete()">Завершение уровня</button>
+        <button onclick="testCorrespondence()">Проверить соответствие</button>
+        <button onclick="testMatch3()">Match3</button>
+        <button onclick="testGame()">Game</button>
+    </div>
+    
+    <div id="game-container"></div>
+
+    <script src="phaser.js"></script>
+    <script type="module">
+        import { Start } from './src/scenes/Start.js';
+        import { GameSelection } from './src/scenes/GameSelection.js';
+        import { Game } from './src/scenes/Game.js';
+        import { Match3 } from './src/scenes/Match3.js';
+        import { Situation } from './src/scenes/Situation.js';
+        import { LevelComplete } from './src/scenes/LevelComplete.js';
+        import { GAME_CONFIG } from './src/config/GameConfig.js';
+
+        const config = {
+            type: Phaser.AUTO,
+            title: 'Test Situation Scene',
+            description: 'Test for situation scene',
+            parent: 'game-container',
+            width: 375,
+            height: 667,
+            backgroundColor: '#040218',
+            pixelArt: false,
+            scene: [
+                Start,
+                GameSelection,
+                Game,
+                Match3,
+                Situation,
+                LevelComplete
+            ],
+            scale: {
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH,
+                min: {
+                    width: 280,
+                    height: 500
+                },
+                max: {
+                    width: 480,
+                    height: 1000
+                }
+            },
+            physics: {
+                default: 'arcade',
+                arcade: {
+                    gravity: { y: GAME_CONFIG.PHYSICS.GRAVITY_Y },
+                    debug: false
+                }
+            },
+            input: {
+                activePointers: 3
+            }
+        };
+
+        const game = new Phaser.Game(config);
+
+        // Глобальные функции для тестирования
+        window.testSituation = (situationNumber) => {
+            game.scene.start('Situation', {
+                situationNumber: situationNumber,
+                nextGame: 'Match3'
+            });
+        };
+
+        window.testMatch3 = () => {
+            game.scene.start('Match3');
+        };
+
+        window.testGame = () => {
+            game.scene.start('Game');
+        };
+
+        window.testLevelComplete = () => {
+            game.scene.start('LevelComplete', {
+                score: 150,
+                targetScore: 100,
+                nextGame: 'Match3'
+            });
+        };
+
+        window.testCorrespondence = () => {
+            // Тестируем соответствие для всех 9 ситуаций
+            for (let i = 1; i <= 9; i++) {
+                console.log(`Тестируем ситуацию ${i}:`);
+                console.log(`- Текст: sit_${i}.txt`);
+                console.log(`- Изображение: fon_${i}.png`);
+                
+                // Запускаем сцену ситуации для проверки
+                setTimeout(() => {
+                    game.scene.start('Situation', {
+                        situationNumber: i,
+                        nextGame: 'Match3'
+                    });
+                }, i * 2000); // Задержка между тестами
+            }
+        };
+    </script>
+</body>
+</html>
